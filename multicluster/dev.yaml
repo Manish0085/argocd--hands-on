@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Manish0085/argocd--hands-on.git
+    targetRevision: main
+    path: multicluster/online-shop
+  destination:
+    server: https://172.31.15.32:33893
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

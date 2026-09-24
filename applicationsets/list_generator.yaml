@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+
+metadata:
+  name: demo-list
+  namespace: argocd
+
+spec:
+  generators:
+    - list:
+        elements:
+          - app: nginx
+            path: ui_approach/nginx
+
+          - app: online-shop
+            path: multicluster/online-shop
+
+          - app: chaiapp
+            path: applicationsets/chai-app
+
+  template:
+    metadata:
+      name: '{{app}}-list'
+
+    spec:
+      project: default
+
+      source:
+        repoURL: https://github.com/Manish0085/argocd--hands-on.git
+        targetRevision: main
+        path: '{{path}}'
+
+      destination:
+        server: https://172.31.15.32:33893
+        namespace: default
+
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
