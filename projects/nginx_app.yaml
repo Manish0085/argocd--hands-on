@@ -8,7 +8,7 @@ metadata:
 spec:
   project: frontend-team # Argo CD project name
   source:
-    repoURL: 'https://github.com/Manish0085/argocd--hand-on.git' # Git repo with manifests
+    repoURL: 'https://github.com/Manish0085/argocd--hands-on.git' # Git repo with manifests
     targetRevision: main # Git branch, tag, or commit SHA
     path: ui_approach/nginx # Folder path containing plain YAML or Kustomize
   destination:

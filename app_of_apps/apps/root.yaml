@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Manish0085/argocd--hands-on.git
+    targetRevision: main
+    path: app_of_apps/apps
+  destination:
+    server: https://172.31.15.32:33893
+    namespace: default
