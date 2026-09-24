@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-app
+  namespace: argocd # Must be deployed where Argo CD is installed
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io # Cascades deletion to child resources
+spec:
+  project: frontend-team # Argo CD project name
+  source:
+    repoURL: 'https://github.com/Manish0085/argocd--hand-on.git' # Git repo with manifests
+    targetRevision: main # Git branch, tag, or commit SHA
+    path: ui_approach/nginx # Folder path containing plain YAML or Kustomize
+  destination:
+    server: 'https://172.31.15.32:33893' # The target cluster API URL
+    namespace: frontend-taeam # Target namespace for your application workloads
+  syncPolicy:
+    automated:
+      prune: true # Automatically deletes resources removed from Git
+      selfHeal: true # Automatically corrects drift if cluster state changes
+    syncOptions:
+      - CreateNamespace=true # Creates target namespace if it doesn't exist
